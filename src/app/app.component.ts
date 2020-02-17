@@ -10,5 +10,5 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
 
   }
-
+// adding notes for another commit
 }

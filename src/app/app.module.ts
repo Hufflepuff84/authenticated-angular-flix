@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LogoComponent } from './logo/logo.component';
@@ -15,6 +15,16 @@ import { MainComponent } from './main/main.component';
 import {MovieService} from './movie.service';
 import {MovieApiService} from './movie-api.service';
 import {ApiService} from './api.service';
+import { SignUpLoginComponent } from './sign-up-login-component/sign-up-login-component.component';
+import { RouterModule, Routes } from '@angular/router';
+import { AuthenInterceptor } from './authen-intercaptor.service';
+import { FormsModule } from '@angular/forms';
+
+const routes : Routes = [
+  {path: '', component: SignUpLoginComponent},
+  {path: 'main', component: MainComponent}
+];
+const appRoutes = RouterModule.forRoot(routes);
 
 @NgModule({
   declarations: [
@@ -26,14 +36,23 @@ import {ApiService} from './api.service';
     HeroButtonComponent,
     ItemComponent,
     ListToggleComponent,
-    MainComponent
+    MainComponent,
+    SignUpLoginComponent,
+       
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    RouterModule.forRoot(routes),
+    RouterModule.forChild(routes)
+    
   ],
-  providers: [MovieService,MovieApiService,ApiService,],
+  exports:[
+    RouterModule
+  ],
+  providers: [MovieService,MovieApiService,ApiService, {provide: HTTP_INTERCEPTORS, useClass: AuthenInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

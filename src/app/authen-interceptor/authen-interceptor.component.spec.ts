@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ListToggleComponent } from './list-toggle.component';
+import { AuthenInterceptorComponent } from './authen-interceptor.component';
 
-describe('ListToggleComponent', () => {
-  let component: ListToggleComponent;
-  let fixture: ComponentFixture<ListToggleComponent>;
+describe('AuthenInterceptorComponent', () => {
+  let component: AuthenInterceptorComponent;
+  let fixture: ComponentFixture<AuthenInterceptorComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ListToggleComponent ]
+      declarations: [ AuthenInterceptorComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ListToggleComponent);
+    fixture = TestBed.createComponent(AuthenInterceptorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
