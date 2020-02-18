@@ -19,6 +19,7 @@ import { SignUpLoginComponent } from './sign-up-login-component/sign-up-login-co
 import { RouterModule, Routes } from '@angular/router';
 import { AuthenInterceptor } from './authen-intercaptor.service';
 import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const routes : Routes = [
   {path: '', component: SignUpLoginComponent},
@@ -46,7 +47,8 @@ const appRoutes = RouterModule.forRoot(routes);
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot(routes),
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    BrowserAnimationsModule
     
   ],
   exports:[
