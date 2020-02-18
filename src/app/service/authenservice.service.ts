@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from '../api.service';
 import { Routes, Router, RouterModule } from '@angular/router';
-
+import {User} from '../user';
 @Injectable({
   providedIn: 'root'
 })
@@ -12,35 +12,42 @@ export class AuthenServiceService {
 
   token;
 
-  async signup(username, password){
-    const user={username, password};
+  async signup(username:string, password:string){
+   try{
+    const user:User={userName:username, password:password};
       let response= await this.apiService.post("auth/signup", user);
       if (response){
-        console.log(this.token);
-        this.routes.navigate(['/main'])
-      }
-      else{
-        console.log("Login failed, display error to user");
+        this.login(user);
       }
       return response;
+    }
+     catch(e){
+        console.log("Login failed, display error to user");
+        console.log(e);
+      }
+      
      
 
   }
  
-  async login(user){
-    await this.apiService.post('auth/signup', user);
-    const response= await this.apiService.post("auth/login", user);
-    this.token= response.token;
-    localStorage.setItem('token',this.token)
+  async login(user:User){
+    //await this.apiService.post('auth/signup', user);
     
-    var success = this.login(user);
-      if (success){
-        console.log(this.token);
-        this.routes.navigate(['/main'])
-      }
-      else{
+    
+    
+     try{
+      const response= await this.apiService.post("auth/login", user);
+      this.token= response.token;
+      localStorage.setItem('token',this.token)
+      this.routes.navigate(['/main'])
+     }
+       catch(e){
         console.log("Login failed, display error to user");
-      }
+        console.log(e)
+       }
+        
+        
+      
     
     
   }

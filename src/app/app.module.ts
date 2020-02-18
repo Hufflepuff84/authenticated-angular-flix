@@ -15,11 +15,10 @@ import { MainComponent } from './main/main.component';
 import {MovieService} from './movie.service';
 import {MovieApiService} from './movie-api.service';
 import {ApiService} from './api.service';
-import { SignUpLoginComponent } from './sign-up-login-component/sign-up-login-component.component';
+import {SignUpLoginComponent} from './sign-up-login/sign-up-login.component'
 import { RouterModule, Routes } from '@angular/router';
 import { AuthenInterceptor } from './authen-intercaptor.service';
 import { FormsModule } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const routes : Routes = [
   {path: '', component: SignUpLoginComponent},
@@ -47,8 +46,7 @@ const appRoutes = RouterModule.forRoot(routes);
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot(routes),
-    RouterModule.forChild(routes),
-    BrowserAnimationsModule
+    RouterModule.forChild(routes)
     
   ],
   exports:[
