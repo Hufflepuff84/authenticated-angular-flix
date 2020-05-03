@@ -9,10 +9,8 @@ import { $ } from 'protractor';
 @Injectable()
 export class AuthenInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler){
-    let token = this.authenService.getToken();
-    if (!token){
-      token='';
-    }
+    const token = this.authenService.getToken();
+    
 
     const authReq = req.clone({
       headers: req.headers.set('Authorization','bearer'+ token)

@@ -20,11 +20,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthenInterceptor } from './authen-intercaptor.service';
 import { FormsModule } from '@angular/forms';
 
-const routes : Routes = [
-  {path: '', component: SignUpLoginComponent},
-  {path: 'main', component: MainComponent}
-];
-const appRoutes = RouterModule.forRoot(routes);
+
 
 @NgModule({
   declarations: [
@@ -45,8 +41,7 @@ const appRoutes = RouterModule.forRoot(routes);
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    RouterModule.forRoot(routes),
-    RouterModule.forChild(routes)
+    
     
   ],
   exports:[

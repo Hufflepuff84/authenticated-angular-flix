@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from '../api.service';
-import { Routes, Router, RouterModule } from '@angular/router';
 import {User} from '../user';
 @Injectable({
   providedIn: 'root'
@@ -8,52 +7,44 @@ import {User} from '../user';
 export class AuthenServiceService {
   private _token: string;
 
-  constructor(private apiService : ApiService, private routes : Router ) { }
+  constructor(private apiService : ApiService) { }
 
-  token;
+  token: string;
 
-  async signup(username:string, password:string){
+  async signup(username:string, password:string): Promise<any> {
    try{
-    const user:User={userName:username, password:password};
+    const user={userName:username, password:password};
       let response= await this.apiService.post("auth/signup", user);
-      if (response){
-        this.login(user);
-      }
+      
       return response;
     }
      catch(e){
         console.log("Login failed, display error to user");
         console.log(e);
       }
-      
-     
-
   }
  
-  async login(user:User){
+  async login(username:string, password:string):Promise<void>{
     //await this.apiService.post('auth/signup', user);
-    
-    
-    
-     try{
+    const user={userName:username, password:password};
+    try{
       const response= await this.apiService.post("auth/login", user);
-      this.token= response.token;
-      localStorage.setItem('token',this.token)
-      this.routes.navigate(['/main'])
+      
+      localStorage.setItem('token',this.token) // using a cookie to set this token. in order to get token we need to use this storage item.
+      
      }
        catch(e){
         console.log("Login failed, display error to user");
         console.log(e)
-       }
-        
-        
-      
-    
-    
+       } 
   }
 
   getToken(){
-    return this.token;
+    return localStorage.getItem('token');
   }
+isAuth():boolean {
+  return localStorage.getItem('token') !== null;
+
+}
 
 }

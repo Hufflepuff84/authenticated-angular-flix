@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import {AuthenServiceService} from '../service/authenservice.service';
 import {User} from '../user'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up-login',
@@ -10,23 +11,35 @@ import {User} from '../user'
 })
 export class SignUpLoginComponent implements OnInit {
 
-  constructor(private auth: AuthenServiceService) {
+  constructor(private auth: AuthenServiceService,private Router: Router) {
 
    }
 user : User ;
 userName:string;
-  ngOnInit() {
-    this.user={
-      userName: "",
-      password:""
-    };
-  }
+password:string;
+invalidlogin= false;
 
-  loginfunction (){
-    this.auth.login(this.user);
+
+  ngOnInit() {
+    
   }
-  registerfunction(){
-    this.auth.signup( this.user.userName, this.user.password);
+  
+
+  async loginfunction (){
+    await this.auth.login(this.userName,this.password);
+    if ( !this.auth.isAuth()) {
+      this.invalidlogin = true;
+    }
+    else {
+      this.invalidlogin = false;
+      this.Router.navigate(['/main'])
+    }
+    
+  }
+  async registerfunction(){
+   await this.auth.signup( this.userName, this.password);
+   await this.loginfunction()
+   
   }
 
 
